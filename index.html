@@ -3,12 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="css/style.css">
+    <title>Ваш сайт</title>
 </head>
 <body>
-    version test
 
-    <div class="versionStatus">Проверить обновления</div>
+    <!-- Ваша кнопка для проверки обновлений -->
+    <button id="checkUpdatesButton">Проверить обновления</button>
+
+    <!-- Скрипт для обработки проверки обновлений -->
+    <script>
+        document.getElementById('checkUpdatesButton').addEventListener('click', function() {
+            // Замените 'alimdzhatdoev' и 'versiontest' на свой GitHub пользователь и репозиторий
+            var githubApiUrl = 'https://api.github.com/repos/alimdzhatdoev/versiontest/releases/latest';
+
+            // Отправляем запрос к GitHub API
+            fetch(githubApiUrl)
+                .then(response => response.json())
+                .then(data => {
+                    // Получаем версию из релиза на GitHub
+                    var latestVersion = data.tag_name;
+
+                    // Замените текущую версию на свою версию проекта
+                    var currentVersion = '1.0.0';
+
+                    // Сравниваем версии
+                    if (latestVersion > currentVersion) {
+                        alert('Доступна новая версия: ' + latestVersion);
+                        // Тут вы можете добавить логику для загрузки новой версии
+                    } else {
+                        alert('У вас последняя версия.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Ошибка при запросе к GitHub API:', error);
+                });
+        });
+    </script>
+
 </body>
 </html>
