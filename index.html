@@ -3,50 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ваш сайт</title>
+    <title>Проверка обновлений</title>
 </head>
 <body>
-
-    <!-- Ваша кнопка для проверки обновлений -->
-    <button id="checkUpdatesButton">Проверить обновления</button>
-
-    <!-- Скрипт для обработки проверки обновлений -->
-    <script>
-        document.getElementById('checkUpdatesButton').addEventListener('click', function() {
-            // Отправляем запрос к файлу package.json
-            fetch('package.json')
-                .then(response => response.json())
-                .then(data => {
-                    // Получаем текущую версию из package.json
-                    var currentVersion = data.version;
-
-                    // Замените 'alimdzhatdoev' и 'versiontest' на свой GitHub пользователь и репозиторий
-                    var githubApiUrl = 'https://api.github.com/repos/alimdzhatdoev/versiontest/releases/latest';
-
-                    // Отправляем запрос к GitHub API
-                    fetch(githubApiUrl)
-                        .then(response => response.json())
-                        .then(data => {
-                            // Получаем версию из релиза на GitHub
-                            var latestVersion = data.tag_name;
-
-                            // Сравниваем версии
-                            if (latestVersion > currentVersion) {
-                                alert('Доступна новая версия: ' + latestVersion);
-                                // Тут вы можете добавить логику для загрузки новой версии
-                            } else {
-                                alert('У вас последняя версия.');
-                            }
-                        })
-                        .catch(error => {
-                            console.error('Ошибка при запросе к GitHub API:', error);
-                        });
-                })
-                .catch(error => {
-                    console.error('Ошибка при чтении package.json:', error);
-                });
-        });
-    </script>
-
+    <form action="check_updates.php" method="post">
+        <input type="submit" name="check_updates" value="Проверить обновления">
+    </form>
 </body>
 </html>
